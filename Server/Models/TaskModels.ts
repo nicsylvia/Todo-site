@@ -22,7 +22,7 @@ const TaskSchema = new mongoose.Schema({
     },
     day: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
+        ref: "todoUsers",
     }
 });
 
