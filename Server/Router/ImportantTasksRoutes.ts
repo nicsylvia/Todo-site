@@ -2,11 +2,11 @@ import { createImportantTasks, getImportantTasks, getOneImportantTasks } from ".
 
 import express from "express";
 
-const router = express.Router();
+const importantTaskRoutes = express.Router();
 
-router.route("/createimportanttasks/:userID").post(createImportantTasks)
-router.route("/getimportanttasks/:userID").get(getImportantTasks)
-router.route("/getimportanttask/:taskID").get(getOneImportantTasks)
+importantTaskRoutes.route("/createimportanttasks/:userID").post(createImportantTasks)
+importantTaskRoutes.route("/getimportanttasks/:userID").get(getImportantTasks)
+importantTaskRoutes.route("/getimportanttask/:taskID").get(getOneImportantTasks)
 
 
-export default router;
+export default importantTaskRoutes;
