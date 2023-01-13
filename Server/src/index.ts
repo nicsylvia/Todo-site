@@ -2,7 +2,8 @@ import express, { Application, Request, Response } from "express";
 
 import cors from "cors";
 import userRouter from "../Router/userRoutes";
-import taskRoutes from "../Router/TaskRoutes"
+import taskRoutes from "../Router/TaskRoutes";
+import importantTaskRoutes from "../Router/ImportantTasksRoutes"
 
 const port: number = 2023;
 
@@ -21,6 +22,7 @@ app.get("/", (req: Request, res: Response) =>{
 
 app.use("/api/users", userRouter)
 app.use("/api/tasks", taskRoutes)
+app.use("/api/importanttasks", importantTaskRoutes)
 
 app.listen(port, () =>{
     console.log("Listening to server port on port", port);

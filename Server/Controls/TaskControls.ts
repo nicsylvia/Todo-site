@@ -23,8 +23,7 @@ const CreateTasks = async(req: Request, res: Response): Promise<Response> =>{
         const getUser = await userModel.findById(req.params.userID);
         if (getUser) {
             const { tittle, date } = req.body;
-            let myDate = Date.now().toLocaleString();
-
+            let myDate = new Date();
             const creatingTask = await TaskModel.create({
                 tittle,
                 date: date ? date : myDate,
@@ -40,7 +39,7 @@ const CreateTasks = async(req: Request, res: Response): Promise<Response> =>{
             getUser.save();
 
             return res.status(200).json({
-                message: "Success",
+                message: "Successfully created tasks for this user",
                 data: creatingTask
             });
         
@@ -53,6 +52,7 @@ const CreateTasks = async(req: Request, res: Response): Promise<Response> =>{
     } catch (error) {
         return res.status(404).json({
             message: "An error occured while creating task",
+            data: error
         })
     }
 }

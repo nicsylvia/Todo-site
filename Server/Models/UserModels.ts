@@ -7,8 +7,8 @@ interface userData{
     email: string;
     password: string;
     myDay: any[];
-    important: taskData[];
-    planned: taskData[];
+    important: any[];
+    planned: any[];
     assigned: taskData[];
     task: any[];
 }

@@ -11,7 +11,7 @@ const TaskSchema = new mongoose.Schema({
     date: {
         type: String,
     },
-    remainder: {
+    reminder: {
         type: String,
     },
     note: {
@@ -19,10 +19,6 @@ const TaskSchema = new mongoose.Schema({
     },
     status: {
         type: Boolean,
-    },
-    day: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "todoUsers",
     }
 });
 
