@@ -5,6 +5,7 @@ import {BsSun ,BsArrowDownUp} from "react-icons/bs"
 import SideBar from '../SideDashBoard/SideBar'
 import Header from '../Header/Header'
 import {GiHamburgerMenu} from "react-icons/gi"
+import TaskBar from '../TaskBar/TaskBar'
 const MyDay = () => {
     const [show , setShow ] = React.useState(true)
 
@@ -37,8 +38,9 @@ const MyDay = () => {
                 <h2>+</h2>
                <Input placeholder='Add a task' />
              </EnterTask>
-     
+            
         </Wrapper>
+        <TaskBar />
     </Container>
     </div>
   )

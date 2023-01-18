@@ -1,11 +1,12 @@
 import React from 'react';
 import {useRoutes } from "react-router-dom";
-import AssignedToMe from '../Body/AssignedToMe';
-import Important from '../Body/Important';
 import MyDay from '../Body/MyDay';
-import Planned from '../Body/Planned';
 import Tasks from '../Body/Tasks';
-import LandingPage from '../HomeScreen/LandingPage';
+import DailyTasks from '../MyBody/DailyTasks';
+import Myassigned from '../MyBody/Myassigned';
+import MyImportant from '../MyBody/MyImportant';
+import MyPlanned from '../MyBody/MyPlanned';
+import MyTasks from '../MyBody/MyTasks';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 
@@ -21,36 +22,34 @@ const AllRoutes = () => {
             element: <SignIn />
         },
         {
-            path: "/task",
-          
-            children : [
-                {
-                    index : true,
-                    element : <MyDay />
-                },
-                {
-                    path : "/task/inbox",
-                    element : <Tasks />
-                },
-                {
-                    path : "/task/assigned_to_me",
-                    element : <AssignedToMe />
-                },
-                {
-                    path : "/task/planned",
-                    element : <Planned />
-                },
-                {
-                    path : "/task/myday",
-                    element : <MyDay />
-                },
-                {
-                    path : "/task/important",
-                    element : <Important />
-                },
-            ]
+            path: "/tasks",
 
-            
+            children: [
+                {
+                    index: true,
+                    element: <MyDay />
+                },
+                {
+                    path: "/tasks/myday",
+                    element: <MyDay />
+                },
+                {
+                    path: "/tasks/important",
+                    element: <MyImportant />
+                },
+                {
+                    path: "/tasks/planned",
+                    element: <MyPlanned />
+                },
+                {
+                    path: "/tasks/assigned",
+                    element: <Myassigned />
+                },
+                {
+                    path: "/tasks/inbox",
+                    element: <Tasks />
+                }
+            ]
         }
     ])
   return element

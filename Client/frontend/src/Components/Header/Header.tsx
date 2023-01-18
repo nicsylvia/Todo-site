@@ -21,7 +21,7 @@ const Header = () => {
                 <Icon><AiOutlineQuestion /></Icon>
                 <Icon><AiOutlineNotification /></Icon>
                 <Icon><Profile>
-                    CA
+                    SA
                 </Profile></Icon>
             </Settings>
         </Container>

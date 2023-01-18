@@ -6,12 +6,21 @@ import SideBar from '../SideDashBoard/SideBar'
 import Header from '../Header/Header'
 import {AiFillHome} from "react-icons/ai"
 import {GiHamburgerMenu} from "react-icons/gi"
+import {IoMdNotificationsOutline} from "react-icons/io"
+import {FiRepeat} from "react-icons/fi"
+import {MdOutlineDateRange} from "react-icons/md"
 
 const Tasks = () => {
     const [show , setShow ] = React.useState(true)
+    const [drop , setdrop] = React.useState(false)
+    // const [data , setData] = React.useState("")
 
     const Toggle = () =>{
         setShow(!show)
+    }
+
+    const DropDownFunc = () =>{
+        setdrop(true)
     }
   return (
     <div>
@@ -32,21 +41,62 @@ const Tasks = () => {
            
         </Icons>
              </NavHold>
-             <Text>Sunday , January 15</Text>
+             <Text>Sunday, January 15</Text>
 
 {/* to extend the widthof the input box using the show boolean operations */}
 {
     show ? 
     <EnterTask wid= "true">
        <h2>+</h2>
-      <Input placeholder='Add a task' />
+      <Input placeholder='Add a task' onClick={DropDownFunc} />
     </EnterTask> : 
              <EnterTask wid= "">
                 <h2>+</h2>
                <Input placeholder='Add a task' />
              </EnterTask>
 }
-     
+
+   {
+    drop ?   <DropDownBox wid = "true">
+   <One>
+   <DropDownIcons>
+     <MdOutlineDateRange />  
+ 
+  
+     </DropDownIcons>
+     <DropDownIcons>
+     <IoMdNotificationsOutline />  
+ 
+  
+     </DropDownIcons>
+     <DropDownIcons>
+   
+     <FiRepeat /> 
+ 
+  
+     </DropDownIcons>
+
+   </One>
+
+   <Button>
+    Add
+   </Button>
+    </DropDownBox> : null
+   }
+     <Task wid = "true">
+  <Div1>
+    <Icon>0</Icon>
+  <TextHold>
+  <p>Sleep for 24 hours</p>
+    <p>Tasks</p>
+  </TextHold>
+  </Div1>
+  <Div2>
+    <Icon2>*</Icon2>
+  </Div2>
+ 
+  
+     </Task>
         </Wrapper>
     </Container>
     </div>
@@ -54,6 +104,65 @@ const Tasks = () => {
 }
 
 export default Tasks;
+
+const One = styled.div`
+display: flex;
+`
+
+const Button = styled.button`
+    
+`
+
+const TextHold = styled.div`
+margin-left: 15px;
+p{
+    margin: 0;
+    font-size: 12px;
+    color: black;
+}
+`
+
+const Div1 = styled.div`
+display: flex;
+`
+
+const Icon = styled.div``
+
+const Div2 =styled.div``
+
+const Icon2 = styled.div``
+
+const Task = styled.div<{wid : string}>`
+     width:  ${({wid}) =>( wid ? "900px" : "1200px")} ;
+    height: 40px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
+   
+    margin-top: 15px;
+    display: flex;
+   justify-content: space-between;
+   align-items: center;
+    background-color: white;
+`
+
+const DropDownIcons = styled.div`
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    color: black;
+    font-weight: 100;
+`
+
+const DropDownBox = styled.div<{wid:string}>`
+     width:  ${({wid}) =>( wid ? "900px" : "1200px")} ;
+    height: 40px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
+    color: blue;
+  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    background-color: #f7f0f0;
+    
+`
 
 const Show = styled.div`
 display: flex;

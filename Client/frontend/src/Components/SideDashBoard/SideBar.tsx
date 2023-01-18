@@ -8,6 +8,7 @@ import {GiHamburgerMenu} from "react-icons/gi"
 import {MdCreateNewFolder} from"react-icons/md"
 import {Link} from "react-router-dom" 
 import { icons } from 'react-icons'
+
 interface props {
     icons : any
 }
@@ -19,11 +20,11 @@ const SideBar:React.FC<props> = ({icons}) => {
             <Wrapper>
                 <IconHold>{icons}</IconHold>
                 <NavHold>
-                    <Nav1 to = "/task/myday"><BsSun /><p>My Day</p></Nav1>
-                    <Nav2 to = "/task/important"><AiOutlineStar /><p>Important</p></Nav2>
-                    <Nav3 to = "/task/planned"><BsFillCalendarCheckFill /><p>Planned</p></Nav3>
-                    <Nav4 to= "/task/assigned_to_me"><CgProfile /><p>Assigned to me</p></Nav4>
-                    <Nav5 to = "/task/inbox"><AiFillHome /><p>Tasks</p></Nav5>
+                    <Nav1 to = "/tasks/myday"><BsSun /><p>My Day</p></Nav1>
+                    <Nav2 to = "/tasks/important"><AiOutlineStar /><p>Important</p></Nav2>
+                    <Nav3 to = "/tasks/planned"><BsFillCalendarCheckFill /><p>Planned</p></Nav3>
+                    <Nav4 to= "/tasks/assigned"><CgProfile /><p>Assigned to me</p></Nav4>
+                    <Nav5 to = "/tasks/inbox"><AiFillHome /><p>Tasks</p></Nav5>
                 </NavHold>
                 <hr />
                 <ListDiv>
