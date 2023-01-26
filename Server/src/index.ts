@@ -3,7 +3,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import userRouter from "../Router/userRoutes";
 import taskRoutes from "../Router/TaskRoutes";
-import importantTaskRoutes from "../Router/ImportantTasksRoutes";
+// import importantTaskRoutes from "../Router/ImportantTasksRoutes";
 import plannedTaskRouter from "../Router/PlannedTasksRoutes";
 
 const port: number = 2023;
@@ -24,7 +24,7 @@ app.get("/", (req: Request, res: Response) =>{
 app.use("/api/users", userRouter)
 app.use("/api/tasks", taskRoutes)
 app.use("/api/plannedtasks", plannedTaskRouter)
-app.use("/api/importanttasks", importantTaskRoutes);
+// app.use("/api/importanttasks", importantTaskRoutes);
 
 
 app.listen(port, () =>{

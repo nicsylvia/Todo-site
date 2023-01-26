@@ -9,10 +9,12 @@ import {GiHamburgerMenu} from "react-icons/gi"
 import {IoMdNotificationsOutline} from "react-icons/io"
 import {FiRepeat} from "react-icons/fi"
 import {MdOutlineDateRange} from "react-icons/md"
+import TaskBar from '../TaskBar/TaskBar'
 
 const Tasks = () => {
     const [show , setShow ] = React.useState(true)
     const [drop , setdrop] = React.useState(false)
+    const[taskBar , setTaskBar] = React.useState(false)
     // const [data , setData] = React.useState("")
 
     const Toggle = () =>{
@@ -21,6 +23,9 @@ const Tasks = () => {
 
     const DropDownFunc = () =>{
         setdrop(true)
+    }
+    const TaskBarFunc = () =>{
+        setTaskBar(!taskBar)
     }
   return (
     <div>
@@ -50,14 +55,14 @@ const Tasks = () => {
        <h2>+</h2>
       <Input placeholder='Add a task' onClick={DropDownFunc} />
     </EnterTask> : 
-             <EnterTask wid= "">
+             <EnterTask wid= "true">
                 <h2>+</h2>
                <Input placeholder='Add a task' />
              </EnterTask>
 }
 
    {
-    drop ?   <DropDownBox wid = "true">
+    drop  ?   <DropDownBox  wid = "true">
    <One>
    <DropDownIcons>
      <MdOutlineDateRange />  
@@ -83,7 +88,7 @@ const Tasks = () => {
    </Button>
     </DropDownBox> : null
    }
-     <Task wid = "true">
+     <Task onClick={TaskBarFunc} wid = "true">
   <Div1>
     <Icon>0</Icon>
   <TextHold>
@@ -98,6 +103,9 @@ const Tasks = () => {
   
      </Task>
         </Wrapper>
+     {
+        taskBar ?    <TaskBar /> : null
+     }
     </Container>
     </div>
   )
@@ -133,9 +141,10 @@ const Div2 =styled.div``
 const Icon2 = styled.div``
 
 const Task = styled.div<{wid : string}>`
-     width:  ${({wid}) =>( wid ? "900px" : "1200px")} ;
+     width:  ${({wid}) =>( wid ? "650px" : "1200px")} ;
     height: 40px;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
+    cursor: pointer;
    
     margin-top: 15px;
     display: flex;
@@ -153,7 +162,7 @@ const DropDownIcons = styled.div`
 `
 
 const DropDownBox = styled.div<{wid:string}>`
-     width:  ${({wid}) =>( wid ? "900px" : "1200px")} ;
+     width:  ${({wid}) =>( wid ? "650px" : "1200px")} ;
     height: 40px;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
     color: blue;
@@ -186,7 +195,7 @@ const Input = styled.input`
 
 const EnterTask = styled.div<{wid : string}>`
 margin-top: 50px;
-    width:  ${({wid}) =>( wid ? "900px" : "1200px")} ;
+    width:  ${({wid}) =>( wid ? "650px" : "1200px")} ;
     height: 40px;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
     color: blue;
@@ -219,7 +228,7 @@ const LightIcon = styled.div`
 display: flex;
 align-items: center;
 font-weight: 400;
-margin-right: 20px;
+
 cursor: pointer;
 :hover{
     background-color: #fdfcfc;
@@ -234,7 +243,7 @@ const ArrIcon =styled.div`
 display: flex;
 align-items: center;
 font-weight: 400;
-margin-right: 30px;
+/* margin-right: 30px; */
 cursor: pointer;
 :hover{
     background-color: #fdfcfc;
@@ -275,6 +284,7 @@ const Container = styled.div`
     /* justify-content: center;
     align-items: center; */
     background-color: white;
+    /* background-color: red; */
     box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.2);
    
 `

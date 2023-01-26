@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import microsoft from "../Assets/microsoft-logo.svg"
+import microsoft from "../Assets/microsoft-logo.svg";
+import { SylviaContext } from '../Global/Global';
 
 const SignIn = () => {
+
+    const testingAccess = useContext(SylviaContext)
     const navigate = useNavigate();
+    console.log(testingAccess?.userData)
   return (
     <div>
         <Container>
@@ -29,7 +33,7 @@ const SignIn = () => {
                                 navigate(-1)}
                         } bg="silver" cc="black"><a >Back</a></Button>
                         
-                        <Link to="/task">
+                        <Link to="/tasks">
                         <Button bg="#005DA6" cc="white"><a href="">Next</a></Button>
                         </Link>
                     </Btn>

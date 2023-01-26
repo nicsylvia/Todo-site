@@ -1,5 +1,6 @@
 import userModel from "../Models/UserModels";
 import {Request, Response} from "express";
+import bcrypt from "bcrypt";
 
 // get all users:
 const getAllUsers = async(req: Request, res: Response): Promise<Response> =>{
@@ -21,6 +22,8 @@ const getAllUsers = async(req: Request, res: Response): Promise<Response> =>{
 const RegisterUsers = async(req: Request, res: Response): Promise<Response> =>{
     try {
         const {name, email, password} = req.body;
+        const saltedPassword = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, saltedPassword)
         const user = await userModel.findOne({email: email})
         if (user) {
             return res.status(400).json({
@@ -30,7 +33,7 @@ const RegisterUsers = async(req: Request, res: Response): Promise<Response> =>{
             const regUser = await userModel.create({
                 name,
                 email,
-                password,
+                password: hashedPassword,
             })
             return res.status(201).json({
                 message: "User created successfully",
@@ -44,6 +47,32 @@ const RegisterUsers = async(req: Request, res: Response): Promise<Response> =>{
         })
     }
 };
+// login user:
+const loginUsers = async(req: Request, res: Response): Promise<Response> =>{
+    try {
+        const {email} = req.body;
+        const user = await userModel.findOne({email});
+        if (!email) {
+            return res.status(400).json({
+                message: "Please enter an email",
+            })
+        }
+        if(!user){
+            return res.status(400).json({
+                message: "Couldn't find user, user doesn't exist",
+            })
+        }
+        return res.status(201).json({
+            message: "User login successful",
+            data: user
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "This user can't sign in. I dentification failed",
+            data: error
+        })
+    }
+}
 // getsingleuser:
 const getSingleUser = async(req: Request, res: Response): Promise<Response> =>{
     try {
@@ -59,5 +88,19 @@ const getSingleUser = async(req: Request, res: Response): Promise<Response> =>{
         })
     }
 }
+const DeleteUsers = async(req: Request, res: Response): Promise<Response> =>{
+    try {
+        const users = await userModel.deleteMany();
+        return res.status(200).json({
+            message: "Successfully deleted user details",
+            data: users
+        })
+    } catch (error) {
+        return res.status(400).json({
+            message: "An error occured in deleting this user",
+            data: error
+        })
+    }
+}
 
-export {getAllUsers, RegisterUsers, getSingleUser} 
+export {getAllUsers, RegisterUsers, getSingleUser, loginUsers, DeleteUsers} 

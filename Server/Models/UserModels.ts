@@ -24,6 +24,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         unique: true,
+        lowercase: true,
+        trim: true
     },
     password: {
         type: String,
@@ -59,7 +61,7 @@ const userSchema = new mongoose.Schema({
             ref: "tasks"
         }
     ]
-});
+}, {timestamps: true});
 
 const userModel = mongoose.model<iUserData>("todoUsers", userSchema)
 export default userModel;

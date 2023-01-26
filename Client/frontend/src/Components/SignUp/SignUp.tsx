@@ -1,32 +1,102 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import microsoft from "../Assets/microsoft-logo.svg"
+import microsoft from "../Assets/microsoft-logo.svg";
+import  { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { SylviaContext } from '../Global/Global';
 
 const SignUp = () => {
+
+    // For the eye icon of the password:
+    const [show, setShow] = useState(true);
+
+    const showPassword = () =>{
+        setShow(!show)
+    }
+
+    const [fullname, setFullname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const allowAccess = useContext(SylviaContext);
+
+    const RegisterUser = async(e: any) =>{
+        e.preventDefault()
+        await axios.post("http://localhost:2023/api/users/registerusers", {
+            name: fullname,
+            email : email,
+            password: password,
+        }).then((res) =>{
+            console.log(res);
+            allowAccess?.setUserData(res.data.data)
+        }) 
+    }
+
   return (
     <div>
         <Container>
             <Box>
-                <Wrapper>
+                <Wrapper onSubmit={RegisterUser}>
                     <Logo src={microsoft} />
                     <h1>Create Account</h1>
-                    <Input>
-                        <input type="text" placeholder='Enter your name e.g Sylvia' />
+                    <Input >
+                        <input 
+                        value={fullname}
+                        onChange = {(e) =>{
+                            setFullname(e.target.value)
+                            console.log("fullname", fullname)
+                        }}
+                      
+                        type="text"  required placeholder='Enter your name e.g Sylvia' />
                         <br />
                         <br />
-                        <input type="email" placeholder='nicsylvia15f@gmail.com' />
+                        <input 
+                         value={email}
+                         onChange = {(e) =>{
+                             setEmail(e.target.value)
+                             
+                             console.log("email", email)
+                             
+                         }}
+                      
+                        type="email"  required placeholder='nicsylvia15f@gmail.com' />
                         <br />
                         <br />
-                        <input type="password" placeholder = "Password" />
+                        <>
+                        {/* Password show and not show on clicking */}
+                         {
+                            show ? (<div>
+                                <input 
+                                value={password}
+                                onChange = {(e) =>{
+                                    setPassword(e.target.value)
+                                    console.log("fullname", fullname)
+                                }}
+                               type="password"  required placeholder = "Password"  />  <div onClick={showPassword}><AiFillEyeInvisible /></div>
+                            </div>
+                              
+                               ) : (
+                                <div>
+                                    <input 
+                                value={password}
+                                onChange = {(e) =>{
+                                    setPassword(e.target.value)
+                                    console.log("fullname", fullname)
+                                }}
+                               type="text"  required placeholder = "Password" /> <div onClick={showPassword}><AiFillEye /></div>
+                                </div>
+                               )
+                         }
+                        </>
                     </Input>
                     
                     <p><a href="">Use a phone number instead</a></p>
                     <p><a href="">Get a new email address</a></p>
                     
-                    <Link to="/signin">
-                        <Button><a href="">Next</a></Button>
-                    </Link>
+                    {/* <Link to="/signin"> */}
+                        <Button type='submit'>Next</Button>
+                    {/* </Link> */}
                 </Wrapper>
             </Box>
         </Container>
@@ -53,7 +123,7 @@ const Box = styled.div`
     align-items: center;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.form`
     width: 400px;
     /* height: 350px; */
     padding-top: 30px;
@@ -77,8 +147,22 @@ const Input = styled.div`
         width: 400px;
         padding-bottom: 10px;
     }
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        div{
+            font-size: 20px;
+            padding-bottom: 10px;
+            position: absolute;
+            right: 20px;
+            cursor: pointer;
+            color: #005DA6;
+        }
+    }
 `;
-const Button = styled.div`
+const Button = styled.button`
     float: right;
     outline: none;
     border: none;

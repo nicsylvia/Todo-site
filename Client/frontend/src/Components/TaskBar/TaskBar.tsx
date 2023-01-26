@@ -12,9 +12,17 @@ import {FiRepeat} from "react-icons/fi"
 import {AiOutlineTag, AiOutlineFileAdd} from "react-icons/ai"
 
 const TaskBar = () => {
+    const [show , setShow] =React.useState(true)
+
+    const Toggle = () =>{
+        setShow(false)
+    }
   return (
     <div>
-        <Container>
+      {
+        show ? (
+            <>
+              <Container>
             <Wrapper>
             <CardNote>
             <Together>
@@ -87,12 +95,15 @@ const TaskBar = () => {
                     <p>Updated a few seconds ago</p>
                 </CardNote>
                 <Bottom>
-                    <Icon><TbFileArrowRight /></Icon>
+                    <Icon onClick={Toggle}><TbFileArrowRight /></Icon>
                     <p>Created Today</p>
                     <Icon><RiDeleteBin5Line /></Icon>
                 </Bottom>
             </Wrapper>
         </Container>
+            </>
+        ) : null
+      }
     </div>
   )
 }
@@ -100,9 +111,10 @@ const TaskBar = () => {
 export default TaskBar;
 
 const Container = styled.div`
-    width: 380px;
+    width: 350px;
     height: 100vh;
     background-color: #FAF9F8;
+    /* background-color: yellow; */
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
