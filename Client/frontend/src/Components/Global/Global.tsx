@@ -1,21 +1,28 @@
-import React, { PropsWithChildren } from 'react';
-import { createContext, useState } from 'react';
+import React, {createContext, PropsWithChildren, useState} from 'react';
 
-interface userProps {
-  userData: null,
-  setUserData: React.Dispatch<React.SetStateAction<null>>
+interface signInProps{
+  name: string,
+  email: string
 }
 
-export const sylviaContext = createContext<userProps | null>(null);
+interface usersProps {
+  usersDetails: signInProps,
+  setUsersDetails: React.Dispatch<React.SetStateAction<signInProps>>,
+}
 
-export const Global: React.FC<PropsWithChildren> = ({children}) => {
+export const allowAccessEverywhere = createContext<usersProps | null>(null)
 
-  const [userData, setUserData] = useState(null)
+const Global: React.FC<PropsWithChildren> = ({children}) => {
+
+  const [usersDetails, setUsersDetails] = useState({} as signInProps)
   return (
-    <sylviaContext.Provider value={{userData, setUserData}}>
+    <allowAccessEverywhere.Provider value={{
+      usersDetails,
+      setUsersDetails
+    }}>
       {children}
-    </sylviaContext.Provider>
-
+    </allowAccessEverywhere.Provider>
   )
 }
 
+export default Global

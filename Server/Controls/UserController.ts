@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 // get all users:
 const getAllUsers = async(req: Request, res: Response): Promise<Response> =>{
     try {
-        const getUser = await userModel.find();
+        const getUser = await userModel.find().sort({createdAt: -1});
         return res.status(200).json({
             message: "Successfully got all users", 
             data: getUser

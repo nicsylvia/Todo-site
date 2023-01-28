@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
 import  { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { sylviaContext } from '../Global/Global';
+import {allowAccessEverywhere} from "../Global/Global"
 
 const SignUp = () => {
 
     const Navigate = useNavigate()
 
-    const useEverywhere = useContext(sylviaContext)
+    const signUpContext = useContext(allowAccessEverywhere)
 
     // For the eye icon of the password:
     const [show, setShow] = useState(true);
@@ -19,51 +19,44 @@ const SignUp = () => {
         setShow(!show)
     }
 
-    const [fullname, setFullname] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-   
-    const RegisterUser = async(e: any) =>{
-        e.preventDefault()
-        await axios.post("http://localhost:2023/api/users/registerusers", {
-            name: fullname,
-            email,
-            password,
-        }).then((res) =>{
-            useEverywhere?.setUserData(res.data.data)
-            Navigate("/signin")
-           
-        }) 
-    }
-
+   const usersRegistration = async(e: any) =>{
+    e.preventDefault()
+    await axios.post("http://localhost:2023/api/users/registerusers", {
+        name,
+        email,
+        password
+    }).then((res) =>{
+        signUpContext?.setUsersDetails(res.data.data)
+        Navigate("/signin")
+    })
+   }
+    
   return (
     <div>
         <Container>
             <Box>
-                <Wrapper onSubmit={RegisterUser}>
+                <Wrapper onSubmit={usersRegistration} >
                     <Logo src={microsoft} />
                     <h1>Create Account</h1>
                     <Input >
                         <input 
-                        value={fullname}
-                        onChange = {(e) =>{
-                            setFullname(e.target.value)
-                            
+                        value={name}
+                        onChange={(e) =>{
+                          setName(e.target.value)
                         }}
                       
                         type="text"  required placeholder='Enter your name e.g Sylvia' />
                         <br />
                         <br />
                         <input 
-                         value={email}
-                         onChange = {(e) =>{
-                             setEmail(e.target.value)
-                             
-                        
-                             
-                         }}
-                      
+                       value={email}
+                      onChange={(e) =>{
+                        setEmail(e.target.value)
+                      }}
                         type="email"  required placeholder='nicsylvia15f@gmail.com' />
                         <br />
                         <br />
@@ -71,23 +64,22 @@ const SignUp = () => {
                         {/* Password show and not show on clicking */}
                          {
                             show ? (<div>
-                                <input 
+                                <input
                                 value={password}
-                                onChange = {(e) =>{
-                                    setPassword(e.target.value)
-                                
-                                }}
-                               type="password"  required placeholder = "Password"  />  <div onClick={showPassword}><AiFillEyeInvisible /></div>
+                                onChange={(e) =>{
+                                  setPassword(e.target.value)
+                                }} 
+                                type="password" required placeholder = "Enter your password"
+                                 />  <div onClick={showPassword}><AiFillEyeInvisible /></div>
                             </div>
                               
                                ) : (
                                 <div>
                                     <input 
-                                value={password}
-                                onChange = {(e) =>{
-                                    setPassword(e.target.value)
-                                
-                                }}
+                               value={password}
+                               onChange={(e) =>{
+                                 setPassword(e.target.value)
+                               }}
                                type="text"  required placeholder = "Password" /> 
                                {/* <Curve>
                                 <i>Please fill this field</i>

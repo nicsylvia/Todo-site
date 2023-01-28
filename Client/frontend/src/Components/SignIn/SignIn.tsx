@@ -1,22 +1,44 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
-import { sylviaContext } from '../Global/Global';
+import { allowAccessEverywhere } from '../Global/Global';
 
 const SignIn = () => {
-    const useEverywhere = useContext(sylviaContext)
 
-    console.log("From signin page", useEverywhere?.userData);
+    const Navigate = useNavigate();
+
+    const loginContext = useContext(allowAccessEverywhere)
+    
+    const [loginName, setLoginName] = useState("")
+
+    const usersLogin = async(e: any) => {
+        e.preventDefault()
+        await axios.post("http://localhost:2023/api/users/userlogin", {
+            email: loginName
+        }).then((res) => {
+            loginContext?.setUsersDetails(res.data.data)
+            console.log(loginContext?.setUsersDetails);
+            Navigate("/tasks")
+        })
+    }
+    console.log("object");
+   
   return (
     <div>
         <Container>
             <Box>
-                <Wrapper>
+                <Wrapper onSubmit={usersLogin}>
                     <Logo src={microsoft} />
                     <h1>Sign in</h1>
                     <Input>
-                        <input type="email" placeholder='Enter your email e.g stargirl@gmail.com' />
+                        <input type="email"
+                        value={loginName}
+                       onChange={(e) =>{
+                        setLoginName(e.target.value)
+                       }}
+                        placeholder='Enter your email e.g stargirl@gmail.com' />
                         <br />
                         <br />
                     </Input>
@@ -29,11 +51,11 @@ const SignIn = () => {
                     <Btn>
                         
                         <Button 
-                        bg="silver" cc="black"><a >Back</a></Button>
+                        bg="silver" cc="black" ><a >Back</a></Button>
                         
-                        <Link to="/tasks">
-                        <Button bg="#005DA6" cc="white"><a href="">Next</a></Button>
-                        </Link>
+                        {/* <Link to="/tasks"> */}
+                        <Button type = "submit" bg="#005DA6" cc="white"><a href="">Next</a></Button>
+                        {/* </Link> */}
                     </Btn>
                 </Wrapper>
             </Box>
@@ -61,7 +83,7 @@ const Box = styled.div`
     align-items: center;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.form`
     width: 400px;
     /* height: 350px; */
     padding-top: 30px;
@@ -91,7 +113,7 @@ const Btn = styled.div`
     flex-wrap: wrap;
     float: right;
 `;
-const Button = styled.div<{bg: string; cc: string}>`
+const Button = styled.button<{bg: string; cc: string}>`
     outline: none;
     border: none;
     margin: 2px;

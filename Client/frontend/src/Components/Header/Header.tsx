@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { TbGridDots } from "react-icons/tb";
 import { AiOutlineQuestion, AiOutlineNotification } from "react-icons/ai";
 import { VscSearch, VscSettingsGear } from "react-icons/vsc";
 
 const Header = () => {
+
   return (
     <div>
         <Container>
@@ -21,8 +22,7 @@ const Header = () => {
                 <Icon><AiOutlineQuestion /></Icon>
                 <Icon><AiOutlineNotification /></Icon>
                 <Icon><Profile>
-                    SA
-                </Profile></Icon>
+                    sa               </Profile></Icon>
             </Settings>
         </Container>
     </div>
