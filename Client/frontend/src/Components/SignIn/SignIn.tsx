@@ -2,13 +2,12 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
-import { SylviaContext } from '../Global/Global';
+import { sylviaContext } from '../Global/Global';
 
 const SignIn = () => {
+    const useEverywhere = useContext(sylviaContext)
 
-    const testingAccess = useContext(SylviaContext)
-    const navigate = useNavigate();
-    console.log(testingAccess?.userData)
+    console.log("From signin page", useEverywhere?.userData);
   return (
     <div>
         <Container>
@@ -29,9 +28,8 @@ const SignIn = () => {
                    
                     <Btn>
                         
-                        <Button onClick={() =>{
-                                navigate(-1)}
-                        } bg="silver" cc="black"><a >Back</a></Button>
+                        <Button 
+                        bg="silver" cc="black"><a >Back</a></Button>
                         
                         <Link to="/tasks">
                         <Button bg="#005DA6" cc="white"><a href="">Next</a></Button>

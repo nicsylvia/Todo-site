@@ -1,12 +1,16 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
 import  { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { SylviaContext } from '../Global/Global';
+import { sylviaContext } from '../Global/Global';
 
 const SignUp = () => {
+
+    const Navigate = useNavigate()
+
+    const useEverywhere = useContext(sylviaContext)
 
     // For the eye icon of the password:
     const [show, setShow] = useState(true);
@@ -19,17 +23,17 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const allowAccess = useContext(SylviaContext);
-
+   
     const RegisterUser = async(e: any) =>{
         e.preventDefault()
         await axios.post("http://localhost:2023/api/users/registerusers", {
             name: fullname,
-            email : email,
-            password: password,
+            email,
+            password,
         }).then((res) =>{
-            console.log(res);
-            allowAccess?.setUserData(res.data.data)
+            useEverywhere?.setUserData(res.data.data)
+            Navigate("/signin")
+           
         }) 
     }
 
@@ -45,7 +49,7 @@ const SignUp = () => {
                         value={fullname}
                         onChange = {(e) =>{
                             setFullname(e.target.value)
-                            console.log("fullname", fullname)
+                            
                         }}
                       
                         type="text"  required placeholder='Enter your name e.g Sylvia' />
@@ -56,7 +60,7 @@ const SignUp = () => {
                          onChange = {(e) =>{
                              setEmail(e.target.value)
                              
-                             console.log("email", email)
+                        
                              
                          }}
                       
@@ -71,7 +75,7 @@ const SignUp = () => {
                                 value={password}
                                 onChange = {(e) =>{
                                     setPassword(e.target.value)
-                                    console.log("fullname", fullname)
+                                
                                 }}
                                type="password"  required placeholder = "Password"  />  <div onClick={showPassword}><AiFillEyeInvisible /></div>
                             </div>
@@ -82,9 +86,13 @@ const SignUp = () => {
                                 value={password}
                                 onChange = {(e) =>{
                                     setPassword(e.target.value)
-                                    console.log("fullname", fullname)
+                                
                                 }}
-                               type="text"  required placeholder = "Password" /> <div onClick={showPassword}><AiFillEye /></div>
+                               type="text"  required placeholder = "Password" /> 
+                               {/* <Curve>
+                                <i>Please fill this field</i>
+                               </Curve> */}
+                                <div onClick={showPassword}><AiFillEye /></div>
                                 </div>
                                )
                          }
@@ -105,6 +113,12 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+const Curve = styled.div`
+    width: 150px;
+    height: 60px;
+    background-color: blue;
+`;
 
 const Container = styled.div`
     width: 100%;

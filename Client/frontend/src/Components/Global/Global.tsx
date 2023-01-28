@@ -1,28 +1,21 @@
-import React, {createContext, PropsWithChildren, useState} from 'react';
+import React, { PropsWithChildren } from 'react';
+import { createContext, useState } from 'react';
 
-interface contextProps{
+interface userProps {
   userData: null,
   setUserData: React.Dispatch<React.SetStateAction<null>>
 }
 
-export const SylviaContext = createContext<contextProps | null>(null);
+export const sylviaContext = createContext<userProps | null>(null);
 
-
-export const GlobalContext: React.FC<PropsWithChildren> = ({children}) => {
-
+export const Global: React.FC<PropsWithChildren> = ({children}) => {
 
   const [userData, setUserData] = useState(null)
-
-
   return (
-    <SylviaContext.Provider value={
-      {
-        userData, 
-        setUserData
-      }
-    }>
+    <sylviaContext.Provider value={{userData, setUserData}}>
       {children}
-    </SylviaContext.Provider>
+    </sylviaContext.Provider>
+
   )
 }
 
