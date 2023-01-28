@@ -5,38 +5,36 @@ import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
 import { allowAccessEverywhere } from '../Global/Global';
 
+
 const SignIn = () => {
 
-    const Navigate = useNavigate();
+    const goToHomePage = useNavigate()
 
-    const loginContext = useContext(allowAccessEverywhere)
-    
-    const [loginName, setLoginName] = useState("")
+    const [loggedName, setLoggedName] = useState("")
 
-    const usersLogin = async(e: any) => {
-        e.preventDefault()
+    const loginContext = useContext(allowAccessEverywhere);
+
+    const UsersLogin = async(e: any) =>{
+        e.preventDefault();
         await axios.post("http://localhost:2023/api/users/userlogin", {
-            email: loginName
-        }).then((res) => {
-            loginContext?.setUsersDetails(res.data.data)
-            console.log(loginContext?.setUsersDetails);
-            Navigate("/tasks")
+            email: loggedName,
+        }).then((res) =>{
+            loginContext?.setUsersData(res.data.data)
+            goToHomePage("/tasks")
         })
     }
-    console.log("object");
    
   return (
     <div>
         <Container>
             <Box>
-                <Wrapper onSubmit={usersLogin}>
+                <Wrapper onSubmit={UsersLogin} >
                     <Logo src={microsoft} />
                     <h1>Sign in</h1>
                     <Input>
                         <input type="email"
-                        value={loginName}
                        onChange={(e) =>{
-                        setLoginName(e.target.value)
+                        setLoggedName(e.target.value)
                        }}
                         placeholder='Enter your email e.g stargirl@gmail.com' />
                         <br />

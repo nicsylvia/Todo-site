@@ -1,28 +1,28 @@
 import React, {createContext, PropsWithChildren, useState} from 'react';
 
-interface signInProps{
+interface usersInfo{
   name: string,
-  email: string
+  email: string,
 }
 
-interface usersProps {
-  usersDetails: signInProps,
-  setUsersDetails: React.Dispatch<React.SetStateAction<signInProps>>,
+interface usersDetails{
+  usersData: usersInfo,
+  setUsersData: React.Dispatch<React.SetStateAction<usersInfo>>,
 }
 
-export const allowAccessEverywhere = createContext<usersProps | null>(null)
+export const allowAccessEverywhere = createContext<usersDetails | null>(null);
 
-const Global: React.FC<PropsWithChildren> = ({children}) => {
+export const Global: React.FC<PropsWithChildren> = ({children}) => {
 
-  const [usersDetails, setUsersDetails] = useState({} as signInProps)
+  const [usersData, setUsersData] = useState({} as usersInfo)
+
   return (
     <allowAccessEverywhere.Provider value={{
-      usersDetails,
-      setUsersDetails
+      usersData,
+      setUsersData
     }}>
       {children}
     </allowAccessEverywhere.Provider>
   )
 }
 
-export default Global

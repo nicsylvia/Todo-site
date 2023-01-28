@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { TbGridDots } from "react-icons/tb";
 import { AiOutlineQuestion, AiOutlineNotification } from "react-icons/ai";
 import { VscSearch, VscSettingsGear } from "react-icons/vsc";
+import { allowAccessEverywhere } from '../Global/Global';
+
 
 const Header = () => {
+
+    const firstletter = useContext(allowAccessEverywhere)
 
   return (
     <div>
@@ -21,8 +25,11 @@ const Header = () => {
                 <Icon><VscSettingsGear /></Icon>
                 <Icon><AiOutlineQuestion /></Icon>
                 <Icon><AiOutlineNotification /></Icon>
-                <Icon><Profile>
-                    sa               </Profile></Icon>
+                <Icon>
+                    <Profile>
+                     {firstletter?.usersData.email.charAt(0).toUpperCase()}              
+                    </Profile>
+                </Icon>
             </Settings>
         </Container>
     </div>

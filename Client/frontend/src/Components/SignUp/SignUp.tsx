@@ -4,13 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import microsoft from "../Assets/microsoft-logo.svg";
 import  { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import {allowAccessEverywhere} from "../Global/Global"
+import { allowAccessEverywhere } from '../Global/Global';
+
 
 const SignUp = () => {
 
-    const Navigate = useNavigate()
+    const goToLoginin = useNavigate()
 
-    const signUpContext = useContext(allowAccessEverywhere)
+    const signupContext = useContext(allowAccessEverywhere)
 
     // For the eye icon of the password:
     const [show, setShow] = useState(true);
@@ -23,40 +24,42 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-   const usersRegistration = async(e: any) =>{
-    e.preventDefault()
-    await axios.post("http://localhost:2023/api/users/registerusers", {
-        name,
-        email,
-        password
-    }).then((res) =>{
-        signUpContext?.setUsersDetails(res.data.data)
-        Navigate("/signin")
-    })
-   }
+    const RegisterUsers = async(e: any) =>{
+        e.preventDefault();
+        await axios.post("http://localhost:2023/api/users/registerusers", {
+            name,
+            email,
+            password,
+        }).then((res) =>{
+            signupContext?.setUsersData(res.data.data)
+            goToLoginin("/signin")
+        })
+    }
+
+   
     
   return (
     <div>
         <Container>
             <Box>
-                <Wrapper onSubmit={usersRegistration} >
+                <Wrapper onSubmit={RegisterUsers} >
                     <Logo src={microsoft} />
                     <h1>Create Account</h1>
                     <Input >
                         <input 
                         value={name}
-                        onChange={(e) =>{
-                          setName(e.target.value)
-                        }}
+                       onChange = {(e) =>{
+                        setName(e.target.value)
+                       }}
                       
                         type="text"  required placeholder='Enter your name e.g Sylvia' />
                         <br />
                         <br />
                         <input 
                        value={email}
-                      onChange={(e) =>{
+                       onChange = {(e) =>{
                         setEmail(e.target.value)
-                      }}
+                       }}
                         type="email"  required placeholder='nicsylvia15f@gmail.com' />
                         <br />
                         <br />
@@ -66,9 +69,9 @@ const SignUp = () => {
                             show ? (<div>
                                 <input
                                 value={password}
-                                onChange={(e) =>{
-                                  setPassword(e.target.value)
-                                }} 
+                                onChange = {(e) =>{
+                                    setPassword(e.target.value)
+                                   }}
                                 type="password" required placeholder = "Enter your password"
                                  />  <div onClick={showPassword}><AiFillEyeInvisible /></div>
                             </div>
@@ -77,8 +80,8 @@ const SignUp = () => {
                                 <div>
                                     <input 
                                value={password}
-                               onChange={(e) =>{
-                                 setPassword(e.target.value)
+                               onChange = {(e) =>{
+                                setPassword(e.target.value)
                                }}
                                type="text"  required placeholder = "Password" /> 
                                {/* <Curve>
